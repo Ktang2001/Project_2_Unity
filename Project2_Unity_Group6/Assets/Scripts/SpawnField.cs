@@ -44,7 +44,10 @@ public class SpawnField : MonoBehaviour
         GameObject spawnedObject = Instantiate(objectToSpawn, spawnPosition, Quaternion.identity);
         
         OpMove opponentMove = spawnedObject.GetComponent<OpMove>(); 
-        if (opponentMove != null) { opponentMove.player = player; }
+        if (opponentMove != null) 
+        { 
+            opponentMove.player = player; 
+        }
     }
 
 }
