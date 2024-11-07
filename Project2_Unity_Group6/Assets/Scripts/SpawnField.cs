@@ -34,9 +34,17 @@ public class SpawnField : MonoBehaviour
     }
     void SpawnObject()
     {
-        Vector3 spawnPosition = new Vector3(Random.Range(spawnArea.position.x - spawnArea.localScale.x / 2, spawnArea.position.x + spawnArea.localScale.x / 2), Random.Range(spawnArea.position.y - spawnArea.localScale.y / 2, spawnArea.position.y + spawnArea.localScale.y / 2), Random.Range(spawnArea.position.z - spawnArea.localScale.z / 2, spawnArea.position.z + spawnArea.localScale.z / 2));
-        GameObject objectToSpawn = spawnObjects[Random.Range(0, spawnObjects.Length)]; Instantiate(objectToSpawn, spawnPosition, Quaternion.identity); 
+        Vector3 spawnPosition = new Vector3(
+            Random.Range(spawnArea.position.x - spawnArea.localScale.x / 2, spawnArea.position.x + spawnArea.localScale.x / 2),
+            Random.Range(spawnArea.position.y - spawnArea.localScale.y / 2, spawnArea.position.y + spawnArea.localScale.y / 2),
+            Random.Range(spawnArea.position.z - spawnArea.localScale.z / 2, spawnArea.position.z + spawnArea.localScale.z / 2)
+        );
 
-        // The line of code above spawns an instance object based on the intieror of the spawn object added, the length of the game objects 
+        GameObject objectToSpawn = spawnObjects[Random.Range(0, spawnObjects.Length)];
+        GameObject spawnedObject = Instantiate(objectToSpawn, spawnPosition, Quaternion.identity);
+        
+        OpMove opponentMove = spawnedObject.GetComponent<OpMove>(); 
+        if (opponentMove != null) { opponentMove.player = player; }
     }
+
 }
