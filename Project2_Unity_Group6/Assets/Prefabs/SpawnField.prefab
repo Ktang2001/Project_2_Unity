@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 500, y: 500, z: 500}
+  m_LocalScale: {x: 1000, y: 1000, z: 1000}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  spawnObjects: []
+  spawnObjects:
+  - {fileID: 2933250006084109029, guid: 6dc7c1c6d18c2e9479355d9b2943577c, type: 3}
   spawnArea: {fileID: 4824037618159534857}
-  sInterval: 10
+  sInterval: 30

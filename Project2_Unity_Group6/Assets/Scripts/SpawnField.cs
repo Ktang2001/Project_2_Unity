@@ -1,37 +1,36 @@
-using NUnit.Framework;
 using System.Collections;
 using UnityEngine;
 
 public class SpawnField : MonoBehaviour
 {
     public Transform player; // The Current location of the player
-    public GameObject[] spawnObjects; // List of possible Gameobects to be spawned into the game
-    public Transform spawnArea;// The area covered by an added Gameobject to this field that will allow anything to spawn inside it.
+    public GameObject[] spawnObjects; // List of possible Gameobjects to be spawned into the game
+    public Transform spawnArea; // The area covered by an added Gameobject to this field that will allow anything to spawn inside it.
     public float sInterval; // The amount of time in seconds 
-    
-   
-    
+
     void Start()
     {
         StartCoroutine(SpawnObjectsOverTime());
     }
 
-    // Update is called once per frame
     void Update()
     {
-        transform.position = player.position;// Has the spawnfield fallow the player whereever he goes.
+        transform.position = player.position; // Has the spawnfield follow the player wherever he goes.
     }
-    IEnumerator SpawnObjectsOverTime() {
-        while (true) // Creates an infinate loop 
+
+    IEnumerator SpawnObjectsOverTime()
+    {
+        while (true) // Creates an infinite loop
         {
-            yield return new WaitForSeconds(sInterval); // Pauses the effect based on the amont of time added as the interval.
-            int numberOfObjects = Random.Range(1, Mathf.FloorToInt(Time.timeSinceLevelLoad / 60f) + 2); // Scales the amount of objects added based on the amount of time that has Passed
+            yield return new WaitForSeconds(sInterval); // Pauses the effect based on the amount of time added as the interval.
+            int numberOfObjects = Random.Range(1, Mathf.FloorToInt(Time.timeSinceLevelLoad / 60f) + 2); // Scales the number of objects added based on the time passed
             for (int i = 0; i < numberOfObjects; i++)
             {
                 SpawnObject(); // Spawns the objects 
             }
         }
     }
+
     void SpawnObject()
     {
         Vector3 spawnPosition = new Vector3(
@@ -42,12 +41,12 @@ public class SpawnField : MonoBehaviour
 
         GameObject objectToSpawn = spawnObjects[Random.Range(0, spawnObjects.Length)];
         GameObject spawnedObject = Instantiate(objectToSpawn, spawnPosition, Quaternion.identity);
-        
-        OpMove opponentMove = spawnedObject.GetComponent<OpMove>(); 
-        if (opponentMove != null) 
-        { 
-            opponentMove.player = player; 
+
+        // Assign the player transform to the spawned opponent's OpMove script
+        OpMove opMove = spawnedObject.GetComponent<OpMove>();
+        if (opMove != null)
+        {
+            opMove.player = player;
         }
     }
-
 }
