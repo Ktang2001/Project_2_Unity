@@ -13,9 +13,14 @@ public class OpMove : MonoBehaviour
     public Transform firePoint;
     public float laserDistance = 100f;
     public LayerMask hitLayers;
-    public GameObject impactEffectPrefab;  
+    public GameObject impactEffectPrefab;
+    public float laserDamage = 10f;
+    public float damageInterval = 1f; // Damage interval in seconds
+    public float laserCooldown = 5f;  // Cooldown for re-shooting the laser
 
     private GameObject currentLaser;
+    private float nextDamageTime = 0f;
+    private float nextFireTime = 0f;
 
     void Start()
     {
@@ -62,22 +67,39 @@ public class OpMove : MonoBehaviour
 
     void CheckPlayerInSphereAndShoot()
     {
-        if (Vector3.Distance(transform.position, player.position) <= laserDistance)
+        if (Vector3.Distance(transform.position, player.position) <= laserDistance && Time.time > nextFireTime)
         {
             ShootLaserAtPlayer();
+            nextFireTime = Time.time + laserCooldown;
         }
     }
 
     void ShootLaserAtPlayer()
     {
-        if (currentLaser == null)
+        if (currentLaser != null)
         {
-            currentLaser = Instantiate(laserPrefab, firePoint.position, firePoint.rotation);
+            Destroy(currentLaser);
         }
+        currentLaser = Instantiate(laserPrefab, firePoint.position, firePoint.rotation);
 
         Vector3 targetPosition = player.position;
         DrawLaser(targetPosition);
         CreateImpactEffect(targetPosition);
+
+        if (Time.time >= nextDamageTime)
+        {
+            DealContinuousDamage();
+            nextDamageTime = Time.time + damageInterval;
+        }
+    }
+
+    void DealContinuousDamage()
+    {
+        Health playerHealth = player.GetComponent<Health>();
+        if (playerHealth != null)
+        {
+            playerHealth.TakeDamage(laserDamage);
+        }
     }
 
     void DrawLaser(Vector3 targetPosition)
@@ -89,6 +111,7 @@ public class OpMove : MonoBehaviour
 
     void CreateImpactEffect(Vector3 impactPoint)
     {
-        Instantiate(impactEffectPrefab, impactPoint, Quaternion.identity);
+        GameObject impactEffect = Instantiate(impactEffectPrefab, impactPoint, Quaternion.identity);
+        Destroy(impactEffect, 2f);  // Adjust the duration as needed
     }
 }

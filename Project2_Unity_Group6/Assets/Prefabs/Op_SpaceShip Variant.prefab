@@ -216,6 +216,7 @@ GameObject:
   - component: {fileID: 3653086467657187592}
   - component: {fileID: 2705648990408667054}
   - component: {fileID: 4918861236743951574}
+  - component: {fileID: -674470079312558539}
   m_Layer: 3
   m_Name: Op_SpaceShip Variant
   m_TagString: Opponent
@@ -316,6 +317,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   impactEffectPrefab: {fileID: 5985393542755780472, guid: 9dfd22f238457b8449b9a65a99eb8617, type: 3}
+  laserDamage: 10
 --- !u!120 &4918861236743951574
 LineRenderer:
   serializedVersion: 2
@@ -372,7 +374,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.12999916
+        value: 0.45064735
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -423,6 +425,19 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &-674470079312558539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2933250006084109029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dbba25fb4075874dba9b3ed2ea3a03f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
 --- !u!1 &3174054836389693398
 GameObject:
   m_ObjectHideFlags: 0
