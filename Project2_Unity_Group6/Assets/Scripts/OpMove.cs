@@ -2,19 +2,24 @@ using UnityEngine;
 
 public class OpMove : MonoBehaviour
 {
-    public Transform player;  
-    public float speed = 5f;  
-    public float rotationSpeed = 5f; 
-    public float pitchSpeed = 5f;  
-    public float stopDistance = 2f;  
-    public float laserRange = 10f; 
-    public LineRenderer laserLine;  
-    public Transform laserStartPoint; 
-    private Vector3 sphereCenter;  
+    public Transform player;
+    public float speed = 5f;
+    public float rotationSpeed = 5f;
+    public float pitchSpeed = 5f;
+    public float stopDistance = 2f;
+    private Vector3 sphereCenter;
+
+    public GameObject laserPrefab;
+    public Transform firePoint;
+    public float laserDistance = 100f;
+    public LayerMask hitLayers;
+    public GameObject impactEffectPrefab;  
+
+    private GameObject currentLaser;
 
     void Start()
     {
-        sphereCenter = transform.position;  
+        sphereCenter = transform.position;
     }
 
     void Update()
@@ -23,7 +28,7 @@ public class OpMove : MonoBehaviour
         {
             MoveTowardsPlayer();
             RotateTowardsPlayer();
-            CheckAndShootLaser();
+            CheckPlayerInSphereAndShoot();
         }
     }
 
@@ -55,22 +60,35 @@ public class OpMove : MonoBehaviour
         }
     }
 
-    void CheckAndShootLaser()
+    void CheckPlayerInSphereAndShoot()
     {
-        if (Vector3.Distance(sphereCenter, player.position) <= laserRange)
+        if (Vector3.Distance(transform.position, player.position) <= laserDistance)
         {
-            ShootLaser();
-        }
-        else
-        {
-            laserLine.enabled = false; 
+            ShootLaserAtPlayer();
         }
     }
 
-    void ShootLaser()
+    void ShootLaserAtPlayer()
     {
-        laserLine.enabled = true;  
-        laserLine.SetPosition(0, laserStartPoint.position);  
-        laserLine.SetPosition(1, player.position);  
+        if (currentLaser == null)
+        {
+            currentLaser = Instantiate(laserPrefab, firePoint.position, firePoint.rotation);
+        }
+
+        Vector3 targetPosition = player.position;
+        DrawLaser(targetPosition);
+        CreateImpactEffect(targetPosition);
+    }
+
+    void DrawLaser(Vector3 targetPosition)
+    {
+        LineRenderer lr = currentLaser.GetComponent<LineRenderer>();
+        lr.SetPosition(0, firePoint.position);
+        lr.SetPosition(1, targetPosition);
+    }
+
+    void CreateImpactEffect(Vector3 impactPoint)
+    {
+        Instantiate(impactEffectPrefab, impactPoint, Quaternion.identity);
     }
 }

@@ -309,9 +309,13 @@ MonoBehaviour:
   rotationSpeed: 5
   pitchSpeed: 5
   stopDistance: 2
-  laserRange: 20
-  laserLine: {fileID: 1452232561449789924, guid: 11b5ec71c7f5d8345a45d367fa6c06cd, type: 3}
-  laserStartPoint: {fileID: 1586672756393025797}
+  laserPrefab: {fileID: 1658772276117844315, guid: 11b5ec71c7f5d8345a45d367fa6c06cd, type: 3}
+  firePoint: {fileID: 1586672756393025797}
+  laserDistance: 500
+  hitLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  impactEffectPrefab: {fileID: 5985393542755780472, guid: 9dfd22f238457b8449b9a65a99eb8617, type: 3}
 --- !u!120 &4918861236743951574
 LineRenderer:
   serializedVersion: 2
