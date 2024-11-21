@@ -9,28 +9,30 @@ public class Controller : MonoBehaviour
     public float minSpeed = 0.0f;
     public float maxSpeed = 50.0f;
     public float acceleration = 2.0f;
-
     private float verticalInput;
     private float horizontalInput;
     private float rollInput;
     private float speedInput;
-
     public Camera camera1;
     public Camera camera2;
     private bool isCamera1Active = true;
-
     public GameObject laserPrefab;
     public Transform firePoint;
     public float laserDistance = 100f;
     public LayerMask hitLayers;
-    public GameObject impactEffectPrefab;  // Reference to the impact effect prefab
-
+    public GameObject impactEffectPrefab;
+    public float laserDamage = 10f;
     private GameObject currentLaser;
-    private GameObject hoveredOpponent;
+    public Health playerHealth;
 
     void Start()
     {
         speed = 0.0f;
+
+        if (playerHealth == null)
+        {
+            playerHealth = GetComponent<Health>();
+        }
 
         camera1.gameObject.SetActive(true);
         camera2.gameObject.SetActive(false);
@@ -66,9 +68,9 @@ public class Controller : MonoBehaviour
         }
 
         // Rotate the spaceship
-        transform.Rotate(Vector3.right, pitchSpeed * verticalInput * Time.deltaTime);  // Pitch
-        transform.Rotate(Vector3.up, yawSpeed * horizontalInput * Time.deltaTime);    // Yaw
-        transform.Rotate(Vector3.forward, rollSpeed * rollInput * Time.deltaTime);    // Roll
+        transform.Rotate(Vector3.right, pitchSpeed * verticalInput * Time.deltaTime); 
+        transform.Rotate(Vector3.up, yawSpeed * horizontalInput * Time.deltaTime);    
+        transform.Rotate(Vector3.forward, rollSpeed * rollInput * Time.deltaTime);    
 
         // Laser controls
         if (Input.GetMouseButtonDown(0))
@@ -82,15 +84,6 @@ public class Controller : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             StopLaser();
-        }
-
-        // Highlight opponent on hover
-        HighlightOpponentOnHover();
-
-        // Select opponent on click
-        if (Input.GetMouseButtonDown(1)) // Right mouse button to select
-        {
-            SelectOpponent();
         }
     }
 
@@ -109,10 +102,10 @@ public class Controller : MonoBehaviour
             {
                 DrawLaser(hit.point);
                 CreateImpactEffect(hit.point);
-                MakeImpactGlow(hit);
-                if (hit.collider.CompareTag("Opponent"))
+                Health opponentHealth = hit.collider.GetComponent<Health>();
+                if (opponentHealth != null)
                 {
-                    // Additional logic for hitting an opponent can be added here
+                    opponentHealth.TakeDamage(laserDamage);
                 }
             }
             else
@@ -141,88 +134,5 @@ public class Controller : MonoBehaviour
     void CreateImpactEffect(Vector3 impactPoint)
     {
         Instantiate(impactEffectPrefab, impactPoint, Quaternion.identity);
-    }
-
-    void MakeImpactGlow(RaycastHit hit)
-    {
-        Renderer renderer = hit.collider.GetComponent<Renderer>();
-        if (renderer != null)
-        {
-            Material material = renderer.material;
-            if (material.HasProperty("_EmissionColor"))
-            {
-                material.EnableKeyword("_EMISSION");
-                material.SetColor("_EmissionColor", Color.red * 2.0f); // Adjust the color and intensity as needed
-            }
-        }
-    }
-
-    void HighlightOpponentOnHover()
-    {
-        Camera currentCamera = isCamera1Active ? camera1 : camera2;
-        Ray ray = currentCamera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            if (hit.collider.CompareTag("Opponent"))
-            {
-                // Highlight the opponent
-                if (hoveredOpponent != null && hoveredOpponent != hit.collider.gameObject)
-                {
-                    ResetHighlight(hoveredOpponent);
-                }
-                hoveredOpponent = hit.collider.gameObject;
-                Renderer renderer = hoveredOpponent.GetComponent<Renderer>();
-                if (renderer != null)
-                {
-                    renderer.material.color = Color.yellow; // Change to yellow to indicate hover
-                }
-            }
-            else
-            {
-                if (hoveredOpponent != null)
-                {
-                    ResetHighlight(hoveredOpponent);
-                    hoveredOpponent = null;
-                }
-            }
-        }
-        else
-        {
-            if (hoveredOpponent != null)
-            {
-                ResetHighlight(hoveredOpponent);
-                hoveredOpponent = null;
-            }
-        }
-    }
-
-    void ResetHighlight(GameObject opponent)
-    {
-        Renderer renderer = opponent.GetComponent<Renderer>();
-        if (renderer != null)
-        {
-            renderer.material.color = Color.white; // Reset to original color
-        }
-    }
-
-    void SelectOpponent()
-    {
-        Camera currentCamera = isCamera1Active ? camera1 : camera2;
-        Ray ray = currentCamera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            if (hit.collider.CompareTag("Opponent"))
-            {
-                Debug.Log("Opponent selected: " + hit.collider.gameObject.name);
-                Renderer renderer = hit.collider.GetComponent<Renderer>();
-                if (renderer != null)
-                {
-                    renderer.material.color = Color.red; // Change to red to indicate selection
-                }
-
-                // Ensure the laser can hit the selected opponent
-                laserDistance = Vector3.Distance(firePoint.position, hit.point);
-            }
-        }
     }
 }

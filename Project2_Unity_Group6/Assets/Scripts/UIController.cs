@@ -7,8 +7,8 @@ public class UIController : MonoBehaviour
     public Button startButton;
     public Button optionsButton;
     public Toggle noiseToggle;
-    public string optionsSceneName = "OptionsScene";  // The name of the Options/Rules scene
-    public string gameSceneName = "GameScene";  // The name of the main game scene
+    public string optionsSceneName = "OptionsScene";  
+    public string gameSceneName = "GameScene";  
 
     void Start()
     {
@@ -30,6 +30,11 @@ public class UIController : MonoBehaviour
     void LoadOptionsScene()
     {
         SceneManager.LoadScene("OptionsScreen");
+    }
+
+    void LoadMenuScene()
+    {
+        SceneManager.LoadScene("MenuScreen");
     }
 
     void ToggleNoise(bool isOn)
