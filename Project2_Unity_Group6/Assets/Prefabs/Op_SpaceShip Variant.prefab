@@ -291,8 +291,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5, y: 5, z: 5}
-  m_Center: {x: 0.05, y: 0.16, z: -1.96}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2705648990408667054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,12 +312,14 @@ MonoBehaviour:
   stopDistance: 2
   laserPrefab: {fileID: 1658772276117844315, guid: 11b5ec71c7f5d8345a45d367fa6c06cd, type: 3}
   firePoint: {fileID: 1586672756393025797}
-  laserDistance: 500
+  laserDistance: 20
   hitLayers:
     serializedVersion: 2
     m_Bits: 64
   impactEffectPrefab: {fileID: 5985393542755780472, guid: 9dfd22f238457b8449b9a65a99eb8617, type: 3}
   laserDamage: 10
+  damageInterval: 1
+  laserCooldown: 5
 --- !u!120 &4918861236743951574
 LineRenderer:
   serializedVersion: 2

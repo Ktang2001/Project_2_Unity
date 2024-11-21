@@ -21,7 +21,7 @@ public class Controller : MonoBehaviour
     public float laserDistance = 100f;
     public LayerMask hitLayers;
     public GameObject impactEffectPrefab;
-    public float laserDamage = 10f;
+    public float laserDamage = 1000f;
     private GameObject currentLaser;
     public Health playerHealth;
 
