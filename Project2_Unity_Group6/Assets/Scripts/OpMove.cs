@@ -2,11 +2,20 @@ using UnityEngine;
 
 public class OpMove : MonoBehaviour
 {
-    public Transform player;  // Assign the player's transform in the Inspector
-    public float speed = 5f;  // Speed of the opponent
-    public float rotationSpeed = 5f;  // Speed of the rotation
-    public float pitchSpeed = 5f;  // Speed of pitch adjustment
-    public float stopDistance = 2f;  // Distance to stop from the player
+    public Transform player;  
+    public float speed = 5f;  
+    public float rotationSpeed = 5f; 
+    public float pitchSpeed = 5f;  
+    public float stopDistance = 2f;  
+    public float laserRange = 10f; 
+    public LineRenderer laserLine;  
+    public Transform laserStartPoint; 
+    private Vector3 sphereCenter;  
+
+    void Start()
+    {
+        sphereCenter = transform.position;  
+    }
 
     void Update()
     {
@@ -14,6 +23,7 @@ public class OpMove : MonoBehaviour
         {
             MoveTowardsPlayer();
             RotateTowardsPlayer();
+            CheckAndShootLaser();
         }
     }
 
@@ -43,5 +53,24 @@ public class OpMove : MonoBehaviour
             targetEulerAngles.z = Mathf.LerpAngle(transform.eulerAngles.z, targetEulerAngles.z, rotationSpeed * Time.deltaTime);
             transform.eulerAngles = targetEulerAngles;
         }
+    }
+
+    void CheckAndShootLaser()
+    {
+        if (Vector3.Distance(sphereCenter, player.position) <= laserRange)
+        {
+            ShootLaser();
+        }
+        else
+        {
+            laserLine.enabled = false; 
+        }
+    }
+
+    void ShootLaser()
+    {
+        laserLine.enabled = true;  
+        laserLine.SetPosition(0, laserStartPoint.position);  
+        laserLine.SetPosition(1, player.position);  
     }
 }

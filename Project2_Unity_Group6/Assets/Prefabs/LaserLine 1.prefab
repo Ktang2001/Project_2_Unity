@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4370022814426107369}
   - component: {fileID: 1452232561449789924}
   m_Layer: 0
-  m_Name: LaserLine
+  m_Name: LaserLine 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,7 +40,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1658772276117844315}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -56,7 +56,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4476787fa11848e4c9d864a632b6a35f, type: 2}
+  - {fileID: 2100000, guid: 58ea3e1ffd68f324dbfba2699d7a5f5c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -88,7 +88,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.50769997
+        value: 0.24770546
         inSlope: 0
         outSlope: 0
         tangentMode: 0

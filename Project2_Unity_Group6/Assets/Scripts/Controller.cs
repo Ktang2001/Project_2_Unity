@@ -141,6 +141,7 @@ public class Controller : MonoBehaviour
     void CreateImpactEffect(Vector3 impactPoint)
     {
         Instantiate(impactEffectPrefab, impactPoint, Quaternion.identity);
+        Destroy(impactEffectPrefab, 5f);
     }
 
     void MakeImpactGlow(RaycastHit hit)
