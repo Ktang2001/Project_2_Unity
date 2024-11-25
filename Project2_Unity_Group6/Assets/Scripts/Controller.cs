@@ -53,7 +53,7 @@ public class Controller : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical"); // Pitch Controls  w, and s
         horizontalInput = Input.GetAxis("Horizontal"); // Yaw Controls a, and d
         rollInput = Input.GetAxis("Roll"); // Roll Controls q, and e
-        speedInput = Input.GetAxis("Mouse ScrollWheel"); // Scrolling the mouse wheel can speed it up 
+        speedInput = Input.GetAxis("Throttle"); // Scrolling the mouse wheel can speed it up 
 
         // Adjust speed based on input and limited based on min and max speed values for the ship.
         if (speedInput != 0.0f)
