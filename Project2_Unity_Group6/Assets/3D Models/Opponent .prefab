@@ -375,7 +375,7 @@ MonoBehaviour:
   stopDistance: 2
   laserPrefab: {fileID: 1658772276117844315, guid: 11b5ec71c7f5d8345a45d367fa6c06cd, type: 3}
   firePoint: {fileID: 6322132518519263531}
-  laserDistance: 20
+  laserDistance: 70
   hitLayers:
     serializedVersion: 2
     m_Bits: 64

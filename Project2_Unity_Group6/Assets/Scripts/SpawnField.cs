@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class SpawnField : MonoBehaviour
 {
-    public Transform player; // The Current location of the player
-    public GameObject[] spawnObjects; // Astroids and Opponet Ships to be spawned
+    public Transform player;
+    public GameObject[] spawnObjects; 
     public Transform spawnArea; 
-    public float sInterval; // The amount of time in seconds to wait to spawn more opponent in 
+    public float sInterval; 
 
     void Start()
     {
@@ -26,7 +26,7 @@ public class SpawnField : MonoBehaviour
             int numberOfObjects = Random.Range(1, Mathf.FloorToInt(Time.timeSinceLevelLoad / 60f) + 2); 
             for (int i = 0; i < numberOfObjects; i++)
             {
-                SpawnObject(); // Spawns the objects 
+                SpawnObject(); 
             }
         }
     }
