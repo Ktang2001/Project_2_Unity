@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public int playerScore = 0;
-    public string gameOverSceneName; // Public variable for Game Over scene name
+    public string gameOverSceneName; 
 
     void Awake()
     {

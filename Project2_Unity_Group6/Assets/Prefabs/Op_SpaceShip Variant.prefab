@@ -312,12 +312,14 @@ MonoBehaviour:
   stopDistance: 2
   laserPrefab: {fileID: 1658772276117844315, guid: 11b5ec71c7f5d8345a45d367fa6c06cd, type: 3}
   firePoint: {fileID: 1586672756393025797}
-  laserDistance: 500
+  laserDistance: 20
   hitLayers:
     serializedVersion: 2
     m_Bits: 64
   impactEffectPrefab: {fileID: 5985393542755780472, guid: 9dfd22f238457b8449b9a65a99eb8617, type: 3}
   laserDamage: 10
+  damageInterval: 1
+  laserCooldown: 5
 --- !u!120 &4918861236743951574
 LineRenderer:
   serializedVersion: 2
@@ -437,7 +439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dbba25fb4075874dba9b3ed2ea3a03f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 1
 --- !u!1 &3174054836389693398
 GameObject:
   m_ObjectHideFlags: 0

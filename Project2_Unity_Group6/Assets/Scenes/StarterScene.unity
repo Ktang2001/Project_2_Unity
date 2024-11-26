@@ -197,6 +197,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 96341103}
     - target: {fileID: 7958386385090900494, guid: 208890a6fb837384385207a063e1d098, type: 3}
+      propertyPath: sInterval
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7958386385090900494, guid: 208890a6fb837384385207a063e1d098, type: 3}
       propertyPath: 'spawnObjects.Array.data[0]'
       value: 
       objectReference: {fileID: 2933250006084109029, guid: 6dc7c1c6d18c2e9479355d9b2943577c, type: 3}

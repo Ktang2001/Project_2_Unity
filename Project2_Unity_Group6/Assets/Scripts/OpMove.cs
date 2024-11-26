@@ -15,8 +15,8 @@ public class OpMove : MonoBehaviour
     public LayerMask hitLayers;
     public GameObject impactEffectPrefab;
     public float laserDamage = 10f;
-    public float damageInterval = 1f; // Damage interval in seconds
-    public float laserCooldown = 5f;  // Cooldown for re-shooting the laser
+    public float damageInterval = 1f; 
+    public float laserCooldown = 5f;  
 
     private GameObject currentLaser;
     private float nextDamageTime = 0f;

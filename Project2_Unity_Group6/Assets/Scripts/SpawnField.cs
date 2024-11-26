@@ -4,9 +4,9 @@ using UnityEngine;
 public class SpawnField : MonoBehaviour
 {
     public Transform player; // The Current location of the player
-    public GameObject[] spawnObjects; // List of possible Gameobjects to be spawned into the game
-    public Transform spawnArea; // The area covered by an added Gameobject to this field that will allow anything to spawn inside it.
-    public float sInterval; // The amount of time in seconds 
+    public GameObject[] spawnObjects; // Astroids and Opponet Ships to be spawned
+    public Transform spawnArea; 
+    public float sInterval; // The amount of time in seconds to wait to spawn more opponent in 
 
     void Start()
     {
@@ -15,15 +15,15 @@ public class SpawnField : MonoBehaviour
 
     void Update()
     {
-        transform.position = player.position; // Has the spawnfield follow the player wherever he goes.
+        transform.position = player.position; 
     }
 
     IEnumerator SpawnObjectsOverTime()
     {
         while (true) // Creates an infinite loop
         {
-            yield return new WaitForSeconds(sInterval); // Pauses the effect based on the amount of time added as the interval.
-            int numberOfObjects = Random.Range(1, Mathf.FloorToInt(Time.timeSinceLevelLoad / 60f) + 2); // Scales the number of objects added based on the time passed
+            yield return new WaitForSeconds(sInterval); 
+            int numberOfObjects = Random.Range(1, Mathf.FloorToInt(Time.timeSinceLevelLoad / 60f) + 2); 
             for (int i = 0; i < numberOfObjects; i++)
             {
                 SpawnObject(); // Spawns the objects 
