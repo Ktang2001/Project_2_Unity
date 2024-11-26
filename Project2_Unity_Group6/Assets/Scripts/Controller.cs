@@ -103,10 +103,7 @@ public class Controller : MonoBehaviour
                 DrawLaser(hit.point);
                 CreateImpactEffect(hit.point);
                 Health opponentHealth = hit.collider.GetComponent<Health>();
-                if (opponentHealth != null)
-                {
-                    opponentHealth.TakeDamage(laserDamage);
-                }
+                opponentHealth.TakeDamage(laserDamage);
             }
             else
             {
