@@ -111,7 +111,7 @@ public class Controller : MonoBehaviour
                 Health opponentHealth = hit.collider.GetComponentInParent<Health>();
                 if (opponentHealth != null)
                 {
-                    Debug.Log("Hit opponent with Health component");
+                    
                     opponentHealth.TakeDamage(laserDamage);
                     Debug.Log("Damage applied: " + laserDamage);
                     Debug.Log("Opponent current health: " + opponentHealth.GetCurrentHealth());
