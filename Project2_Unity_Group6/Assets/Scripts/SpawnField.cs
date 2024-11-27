@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SpawnField : MonoBehaviour
 {
-    public Transform player; 
+    public Transform player;
     public GameObject[] spawnObjects; // A list of game objects that can be spawned.
     public Transform spawnArea;  // The gameobject representing the bondaries of where things can spawn
     public float sInterval; // # of seconds between spawn periods
@@ -15,7 +15,7 @@ public class SpawnField : MonoBehaviour
 
     void Update()
     {
-        transform.position = player.position; 
+        transform.position = player.position;
     }
 
     IEnumerator SpawnObjectsOverTime()
@@ -49,5 +49,6 @@ public class SpawnField : MonoBehaviour
         {
             opMove.player = player;
         }
+       
     }
 }
