@@ -31,8 +31,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        Debug.Log("Game Over!");
-        scoreText.text= playerScore.ToString("0");
+        
         SceneManager.LoadScene(gameOverSceneName); 
     }
 }

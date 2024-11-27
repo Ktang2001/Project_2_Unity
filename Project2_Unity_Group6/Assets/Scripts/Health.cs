@@ -20,7 +20,7 @@ public class Health : MonoBehaviour
         {
             if (gameObject.tag == "Player")
         {
-             GameManager.Instance.GameOver(); // Goes to game over screen
+             GameManager.Instance.GameOver(); // calls game over method
              Destroy(gameObject); // Destroyes the player gameobeject
         }
         else if (gameObject.tag == "Opponent")

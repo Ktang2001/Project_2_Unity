@@ -30,9 +30,9 @@ public class UIController : MonoBehaviour
         SceneManager.LoadScene("StarterScene");
     }
 
-    void LoadMenuScene()
+    public void LoadMenuScene()
     {
-        SceneManager.LoadScene("MenuScreen"); // Loads the menu screen (Not used did not have time to implment in game ui)
+        SceneManager.LoadScene("MenuScreen"); 
     }
 
     void ToggleNoise(bool isOn)
