@@ -104,20 +104,31 @@ public class Controller : MonoBehaviour
             Ray ray = currentCamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, laserDistance, hitLayers))
             {
-                // Hit logic if it hits an opponent or astroind.
-                DrawLaser(hit.point); // This reather then being about where the mouse is is based on where the laser impacted the opposition allowing for the laser to apper to stop at the oppent rather then traveling through
-                CreateImpactEffect(hit.point); // Impact particle affect
-                Health opponentHealth = hit.collider.GetComponent<Health>(); // Call the Health componet of the opponent 
-                opponentHealth.TakeDamage(laserDamage); // Calls specifically the take dame from the health script  of the opponent
+                DrawLaser(hit.point);
+                CreateImpactEffect(hit.point);
+
+                // Get the Health component from the hit object
+                Health opponentHealth = hit.collider.GetComponentInParent<Health>();
+                if (opponentHealth != null)
+                {
+                    Debug.Log("Hit opponent with Health component");
+                    opponentHealth.TakeDamage(laserDamage);
+                    Debug.Log("Damage applied: " + laserDamage);
+                    Debug.Log("Opponent current health: " + opponentHealth.GetCurrentHealth());
+                }
+                else
+                {
+                    Debug.LogWarning("Hit object does not have a Health component");
+                }
             }
             else
             {
-                // Allows the laser to still be visiable even if it is a miss be forgoing the hit logic 
                 Vector3 targetPosition = ray.origin + ray.direction * laserDistance;
-                DrawLaser(targetPosition); // This draw laser draws the laser based on mouse postion allone
+                DrawLaser(targetPosition);
             }
         }
     }
+
 
     void StopLaser()
     {
