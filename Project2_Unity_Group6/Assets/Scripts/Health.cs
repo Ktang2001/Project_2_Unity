@@ -19,17 +19,20 @@ public class Health : MonoBehaviour
         if (currentHealth <= 0)
         {
             if (gameObject.tag == "Player")
-        {
-             GameManager.Instance.GameOver(); // calls game over method
-             Destroy(gameObject); // Destroyes the player gameobeject
-        }
-        else if (gameObject.tag == "Opponent")
-        {
-            GameManager.Instance.IncreaseScore(10); // crases player score by 10 
-            Destroy(gameObject); // destroyes opponenet object
-        }
+            {
+                GameManager.Instance.GameOver(); // calls game over method
+                Destroy(gameObject); // Destroyes the player gameobeject
+            }
+
+            else if (gameObject.tag == "Opponent")
+            {
+                GameManager.Instance.IncreaseScore(10); // crases player score by 10 
+                Destroy(gameObject); // destroyes opponenet object
+            }
             Die();
         }
+        
+        
     }
 
     public void Heal(float amount) // Heal in case we want to add future heal powerups to the game not used with current project
