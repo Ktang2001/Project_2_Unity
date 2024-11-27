@@ -13,13 +13,13 @@ public class Controller : MonoBehaviour
     private float horizontalInput;
     private float rollInput;
     private float speedInput;
-    public Camera camera1;
-    public Camera camera2;
+    public Camera camera1; // Third person camera
+    public Camera camera2; // First person camera
     private bool isCamera1Active = true;
     public GameObject laserPrefab;
     public Transform firePoint;
     public float laserDistance = 100f;
-    public LayerMask hitLayers;
+    public LayerMask hitLayers; // Hit able layers we just set this to opponent 
     public GameObject impactEffectPrefab;
     public float laserDamage = 10f;
     private GameObject currentLaser;
@@ -31,9 +31,10 @@ public class Controller : MonoBehaviour
 
         if (playerHealth == null)
         {
-            playerHealth = GetComponent<Health>();
+            playerHealth = GetComponent<Health>(); // sets player health to be what the health script component is set to 
         }
 
+        // Lets the game start in third person control 
         camera1.gameObject.SetActive(true);
         camera2.gameObject.SetActive(false);
     }
@@ -43,8 +44,9 @@ public class Controller : MonoBehaviour
         // Switch between cameras when the "C" key is pressed
         if (Input.GetKeyDown(KeyCode.C))
         {
-            isCamera1Active = !isCamera1Active;
+            isCamera1Active = !isCamera1Active; // switches the view to the the other camera based on if camera 1 is not active it makes it active otherwise it deactivtes its
 
+            // based on which one is active the code deactivates the toher 
             camera1.gameObject.SetActive(isCamera1Active);
             camera2.gameObject.SetActive(!isCamera1Active);
         }
@@ -53,7 +55,7 @@ public class Controller : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical"); // Pitch Controls  w, and s
         horizontalInput = Input.GetAxis("Horizontal"); // Yaw Controls a, and d
         rollInput = Input.GetAxis("Roll"); // Roll Controls q, and e
-        speedInput = Input.GetAxis("Throttle"); // Scrolling the mouse wheel can speed it up 
+        speedInput = Input.GetAxis("Throttle"); // Changes speed of the player based on the  up and down arrows
 
         // Adjust speed based on input and limited based on min and max speed values for the ship.
         if (speedInput != 0.0f)
@@ -67,7 +69,7 @@ public class Controller : MonoBehaviour
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }
 
-        // Rotate the spaceship
+        // Rotate the spaceships pitch, Yaw, and roll 
         transform.Rotate(Vector3.right, pitchSpeed * verticalInput * Time.deltaTime); 
         transform.Rotate(Vector3.up, yawSpeed * horizontalInput * Time.deltaTime);    
         transform.Rotate(Vector3.forward, rollSpeed * rollInput * Time.deltaTime);    
@@ -92,6 +94,8 @@ public class Controller : MonoBehaviour
         currentLaser = Instantiate(laserPrefab, firePoint.position, firePoint.rotation);
     }
 
+
+    // So the player can fire a continous beam this updated fuction allows the game to calcuale the new location of the fireing point and target location.
     void UpdateLaser()
     {
         if (currentLaser != null)
@@ -100,21 +104,24 @@ public class Controller : MonoBehaviour
             Ray ray = currentCamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, laserDistance, hitLayers))
             {
-                DrawLaser(hit.point);
-                CreateImpactEffect(hit.point);
-                Health opponentHealth = hit.collider.GetComponent<Health>();
-                opponentHealth.TakeDamage(laserDamage);
+                // Hit logic if it hits an opponent or astroind.
+                DrawLaser(hit.point); // This reather then being about where the mouse is is based on where the laser impacted the opposition allowing for the laser to apper to stop at the oppent rather then traveling through
+                CreateImpactEffect(hit.point); // Impact particle affect
+                Health opponentHealth = hit.collider.GetComponent<Health>(); // Call the Health componet of the opponent 
+                opponentHealth.TakeDamage(laserDamage); // Calls specifically the take dame from the health script  of the opponent
             }
             else
             {
+                // Allows the laser to still be visiable even if it is a miss be forgoing the hit logic 
                 Vector3 targetPosition = ray.origin + ray.direction * laserDistance;
-                DrawLaser(targetPosition);
+                DrawLaser(targetPosition); // This draw laser draws the laser based on mouse postion allone
             }
         }
     }
 
     void StopLaser()
     {
+        // Stops laser visial when not engaged
         if (currentLaser != null)
         {
             Destroy(currentLaser);
@@ -123,6 +130,7 @@ public class Controller : MonoBehaviour
 
     void DrawLaser(Vector3 targetPosition)
     {
+        // Makes the laser visible on screen to the player
         LineRenderer lr = currentLaser.GetComponent<LineRenderer>();
         lr.SetPosition(0, firePoint.position);
         lr.SetPosition(1, targetPosition);

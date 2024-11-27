@@ -1,5 +1,7 @@
 using UnityEngine;
 
+
+// This code is ment to create fireflicker effect when a laser hits an opponet or astroid
 public class FireLightFlicker : MonoBehaviour
 {
     public Light fireLight;
@@ -9,7 +11,7 @@ public class FireLightFlicker : MonoBehaviour
 
     void Start()
     {
-        fireLight = GetComponent<Light>();
+        fireLight = GetComponent<Light>(); // Gets the light componet of the effect to mess with its intensity
     }
 
     void Update()

@@ -13,26 +13,26 @@ public class Health : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void TakeDamage(float amount)
+    public void TakeDamage(float amount) // Allows damage logic to take affect 
     {
         currentHealth -= amount;
         if (currentHealth <= 0)
         {
             if (gameObject.tag == "Player")
         {
-            GameManager.Instance.GameOver();
-            Destroy(gameObject);
+             GameManager.Instance.GameOver(); // Goes to game over screen
+             Destroy(gameObject); // Destroyes the player gameobeject
         }
         else if (gameObject.tag == "Opponent")
         {
-            GameManager.Instance.IncreaseScore(10); 
-            Destroy(gameObject);
+            GameManager.Instance.IncreaseScore(10); // crases player score by 10 
+            Destroy(gameObject); // destroyes opponenet object
         }
-            //Die();
+            Die();
         }
     }
 
-    public void Heal(float amount)
+    public void Heal(float amount) // Heal in case we want to add future heal powerups to the game not used with current project
     {
         currentHealth += amount;
         if (currentHealth > maxHealth)
@@ -58,7 +58,7 @@ public class Health : MonoBehaviour
     }
 
 
-    public float GetCurrentHealth()
+    public float GetCurrentHealth() // To help with the creation of health bars or other health UI systems 
     {
         return currentHealth;
     }

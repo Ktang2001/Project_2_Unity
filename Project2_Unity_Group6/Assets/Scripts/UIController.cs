@@ -7,14 +7,14 @@ public class UIController : MonoBehaviour
     public Button startButton;
     public Button QuitButton;
     public Toggle noiseToggle;  
-    public string gameSceneName = "GameScene";  
+    public string gameSceneName = "GameScene";  // Changeable Starter scene incase in the future we want to create more levels
 
     void Start()
     {
         // Assigning button click listeners
-        startButton.onClick.AddListener(StartGame);
-        QuitButton.onClick.AddListener(QuitGame);
-        noiseToggle.onValueChanged.AddListener(ToggleNoise);
+        startButton.onClick.AddListener(StartGame);// Start button 
+        QuitButton.onClick.AddListener(QuitGame); // Quit button 
+        noiseToggle.onValueChanged.AddListener(ToggleNoise); // Togle for volume contorl
 
         // Initialize toggle state
         noiseToggle.isOn = AudioListener.volume > 0;
@@ -22,7 +22,7 @@ public class UIController : MonoBehaviour
 
     public void QuitGame()
     {
-        Application.Quit();
+        Application.Quit(); // Quit the game 
     }
     void StartGame()
     {
@@ -32,7 +32,7 @@ public class UIController : MonoBehaviour
 
     void LoadMenuScene()
     {
-        SceneManager.LoadScene("MenuScreen");
+        SceneManager.LoadScene("MenuScreen"); // Loads the menu screen (Not used did not have time to implment in game ui)
     }
 
     void ToggleNoise(bool isOn)
