@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public int playerScore = 0;
     public string gameOverSceneName; 
+    public Text scoreText;
 
     void Awake()
     {
@@ -30,6 +32,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         Debug.Log("Game Over!");
+        scoreText.text= playerScore.ToString("0");
         SceneManager.LoadScene(gameOverSceneName); 
     }
 }
