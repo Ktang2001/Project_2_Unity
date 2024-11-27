@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+            Destroy(gameObject); // Destroyes any other instance of game manager (There should never be another one but its just and addtional check)
         }
     }
 

@@ -22,7 +22,7 @@ public class FirstPersonCamera : MonoBehaviour
         // This will allows the camera to follow the vehicle
         transform.position = player.transform.position + offSet;
             // transfom.postion for the object refrences as well as the player it is ment to follow just represents the postion of the object refrenced 
-            // The offSet is a Vector we have defined above to represent the distance the object needs to follow the player from
+            // The offSet is a Vector we have defined above to represent the distance the object needs to lead the player from
             // So in effect we are setting the position of object based on the postion of the target game object + the offset vector distances. 
             // The only main diffrence between this and the Follow Player script is that it based on a global positon instead of local based on player location 
         
